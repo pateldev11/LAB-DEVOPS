@@ -1,18 +1,17 @@
 pipeline {
     agent any  // Run on any available agent
 
-    environment {
-        DOCKER_HUB_USER = credentials('devvpatel11')  // Replace with your Jenkins credential ID
-        DOCKER_HUB_PASS = credentials('devnpatel11')  // Replace with your Jenkins credential ID
-        DOCKER_IMAGE = 'devvpatel11/maven-app'  // Replace with your Docker Hub username
-    }
+   environment {
+    DOCKER_HUB_USER = credentials('docker-hub-credentials')
+}
 
     stages {
         stage('Checkout Code') {
-            steps {
-                git 'https://github.com/pateldev11/LAB-DEVOPS.git'  // Replace with your GitHub repo URL
-            }
-        }
+    steps {
+        git credentialsId: 'github-credentials', url: 'https://github.com/pateldev11/LAB-DEVOPS.git', branch: 'main'
+    }
+}
+
 
         stage('Build Maven Project') {
             steps {
